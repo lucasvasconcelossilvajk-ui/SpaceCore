@@ -16,11 +16,12 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
 
-      - name: Fix Build Tools 31.0.0
+      - name: Install and Fix Build Tools 31.0.0
         run: |
-          SDK_DIR="/usr/local/lib/android/sdk/build-tools/31.0.0"
-          sudo ln -sf "$SDK_DIR/d8" "$SDK_DIR/dx"
-          sudo ln -sf "$SDK_DIR/lib/d8.jar" "$SDK_DIR/lib/dx.jar"
+          SDK_ROOT="/usr/local/lib/android/sdk"
+          yes | sudo "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" "build-tools;31.0.0"
+          sudo ln -sf "$SDK_ROOT/build-tools/31.0.0/d8" "$SDK_ROOT/build-tools/31.0.0/dx"
+          sudo ln -sf "$SDK_ROOT/build-tools/31.0.0/lib/d8.jar" "$SDK_ROOT/build-tools/31.0.0/lib/dx.jar"
 
       - name: Permission
         run: chmod +x gradlew
